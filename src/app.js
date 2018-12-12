@@ -12,7 +12,7 @@ if(process.env.NODE_ENV !== 'test'){
 app.use(function (req, res, next) {
   res.header('Access-Control-Allow-Origin', '*'); // * => allow all origins
   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,OPTIONS,DELETE');
-  res.header('Access-Control-Allow-Headers', 'Content-Type, X-Auth-Token, Accept'); // add remove headers according to your needs
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");// add remove headers according to your needs
   next()
 });
 
