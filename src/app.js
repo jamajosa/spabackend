@@ -6,7 +6,16 @@ const routes = require('./routes/routes')
 
 mongoose.Promise = global.Promise;
 if(process.env.NODE_ENV !== 'test'){
-  mongoose.connect('mongodb://testuser:user1test@ds145921.mlab.com:45921/games');
+  var options = { server: { socketOptions: { keepAlive: 300000, connectTimeoutMS: 30000 } },
+                  replset: { socketOptions: { keepAlive: 300000, connectTimeoutMS : 30000 } } };
+
+
+mongoose.connect('mongodb://testuser:user1test@ds145921.mlab.com:45921/games',options);
+var conn = mongoose.connection;
+conn.on('error', console.error.bind(console, 'connection error:'));
+conn.once('open', function() {
+  // Wait for the database connection to establish, then start the app.
+});
 }
 
 app.use(function (req, res, next) {

@@ -19,3 +19,11 @@ module.exports =
     dburl: 'mongodb://localhost/gamedb'
     //"mongodb://" + env.dbUser + ":" + env.dbPassword + "@ds029585.mlab.com:29585/mongodb_project"
 };
+
+if (process.env.NODE_ENV === 'production') {
+	app.use(express.static('client/build'));
+}
+
+app.get('*', (request, response) => {
+	response.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+});
