@@ -44,6 +44,14 @@ module.exports = {
     .then((game) => res.status(200).send(game))
     .catch(next);
   },
+  addComp(req,res,next){
+    const gameId = req.params.id;
+    const company = req.body.id;
+    Company.findByIdAndUpdate({ _id: gameId },
+      { $push: { gameCompany: company } })
+    .then((game) => res.status(200).send(game))
+    .catch(next);
+  }
   // pushACompany(req,res,next){
   //   const gameId = req.params.id;
   // }

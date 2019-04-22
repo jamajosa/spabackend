@@ -1,6 +1,9 @@
 const GamesController = require ('../controllers/games_controller')
 const DeveloperController = require ('../controllers/developer_controller')
 const CompanyController = require ('../controllers/company_controller')
+const UserController = require('../controllers/user_controller');
+const express= require('express');
+const jwtHelper = require('../config/jwtHelper');
 module.exports = (app) => {
 
   //gamescontroller
@@ -10,7 +13,7 @@ module.exports = (app) => {
   app.post('/api/games', GamesController.create);
   app.put('/api/games/:id', GamesController.edit);
   app.delete('/api/games/:id', GamesController.delete);
-  //app.put('/api/gamesPush/:id', GamesController.pushACompany);
+  app.put('/api/gamesComp/:id', GamesController.addComp);
 
   //developercontroller
   app.get('/api/developers/:id', DeveloperController.readById);
@@ -27,4 +30,9 @@ module.exports = (app) => {
   app.delete('/api/companies/:id', CompanyController.delete);
   app.put('/api/companiesDevs/:id/', CompanyController.addDev);
 
+  //userroutes
+  app.post('/api/users/register',UserController.register);
+  app.get('/api/users',UserController.read);
+  app.post('/api/authenticate',UserController.authenticate);
+  app.get('/api/userprofile',jwtHelper.verifyJwtToken,UserController.userProfile);
 };

@@ -24,6 +24,7 @@ module.exports = {
   },
   read(req,res,next){
     Company.find({})
+    .populate('companyDeveloper')
     .then((company) => res.status(200).send(company))
     .catch(next);
   },
